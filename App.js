@@ -1,30 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+import ImageViewer from "./components/ImageViewer";
+
+const PlaceholderImage = require("./assets/background-image.jpg");
 
 export default function App() {
-  const fetchImage = async () => {
-    const response = await fetch(
-      "https://unsplash.com/photos/a-picture-of-a-tree-with-white-lines-on-it-yJDDRS6U9OQ",
-      {
-        method: "GET",
-        mode: "no-cors",
-      }
-    );
-    console.log(response);
-  };
-
-  useEffect(() => {
-    fetchImage().then((res) => {
-      console.log(res);
-    });
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.js to start working on your app!
-      </Text>
+      <View style={styles.imageContainer}>
+        <ImageViewer placeholderImageSource={PlaceholderImage} />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -39,5 +24,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
+  },
+  imageContainer: {
+    flex: 1,
+    paddingTop: 58,
   },
 });
