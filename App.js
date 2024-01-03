@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ImageViewer from "./components/ImageViewer";
 import Button from "./components/Button";
 import { pickImageAsync } from "./components/ImagePicker";
@@ -9,10 +9,13 @@ const PlaceholderImage = require("./assets/background-image.jpg");
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showAppOptions, setShowAppOptions] = useState(false);
+
   const handlePress = async () => {
     const response = await pickImageAsync();
     const { image } = response;
     setSelectedImage(image.uri);
+    setShowAppOptions(true);
   };
 
   return (
@@ -23,10 +26,22 @@ export default function App() {
           selectedImage={selectedImage}
         />
       </View>
-      <View style={styles.footerContainer}>
-        <Button theme="primary" label="Choose a photo" onPress={handlePress} />
-        <Button label="Use this photo" />
-      </View>
+      {showAppOptions ? (
+        <View />
+      ) : (
+        <View style={styles.footerContainer}>
+          <Button
+            theme="primary"
+            label="Choose a photo"
+            onPress={handlePress}
+          />
+          <Button
+            label="Use this photo"
+            onPress={() => setShowAppOptions(true)}
+          />
+        </View>
+      )}
+
       <StatusBar style="auto" />
     </View>
   );
