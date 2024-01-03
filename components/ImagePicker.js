@@ -7,7 +7,7 @@ export const pickImageAsync = async () => {
   });
 
   if (!result.canceled) {
-    console.log(result);
+    return { image: result.assets[0] };
   } else {
     alert("You did not select any image.");
   }
